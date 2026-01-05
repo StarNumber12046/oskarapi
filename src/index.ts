@@ -2,6 +2,7 @@ import { fromHono } from "chanfana";
 import { Hono } from "hono";
 import { OskarRandom } from "./endpoints/imageRandom";
 import { OskarList } from "./endpoints/imageList";
+import { OskarProxy } from "./endpoints/proxyImage";
 
 // Start a Hono app
 const app = new Hono<{ Bindings: Env }>();
@@ -14,6 +15,7 @@ const openapi = fromHono(app, {
 // Register OpenAPI endpoints
 openapi.get("/oskar", OskarRandom);
 openapi.get("/oskar/list", OskarList);
+openapi.get("/proxy/:image", OskarProxy);
 
 // You may also register routes for non OpenAPI directly on Hono
 // app.get('/test', (c) => c.text('Hono!'))

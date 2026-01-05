@@ -22,6 +22,10 @@ export class OskarList extends OpenAPIRoute {
   async handle(c: AppContext) {
     const oskarImages = await c.env.OSKAR.list({});
 
-    return Response.json({ images: [oskarImages.objects.map((i) => i.key)] });
+    return Response.json({
+      images: oskarImages.objects.map(
+        (i) => c.req.url.replace("/oskar/list", "/proxy/") + i.key
+      ),
+    });
   }
 }
